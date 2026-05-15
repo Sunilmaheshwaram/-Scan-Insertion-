@@ -24,6 +24,9 @@ define_test_clock -name scanclk -period 33.33 [get_ports scan_clk]
 define_shift_enable -name se -active high scan_en
 define_test_mode name tm -active high test_mode
 define_test_signal -active high -function compression_enable SCOMP -create_port
+define_test_signal -active high -function spread_enable SPREAD create_port
+define_test_signal -active high -function mask_enable CME -create_port
+define_test_signal -active high -function mask_load CMLE -create_port
 
 check_dft_rule
 
@@ -84,6 +87,7 @@ define_scan_chain -name top_chain_48 -sdi scan_in_48 -sdo scan_out_48 -shift_ena
 define_scan_chain -name top_chain_49 -sdi scan_in_49 -sdo scan_out_49 -shift_enable se -create_ports
 define_scan_chain -name top_chain_50 -sdi scan_in_50 -sdo scan_out_50 -shift_enable se -create_ports
 
+connect_scan_chains -preview
 connect_scan_chains
 
 compress_scan_chains -ratio 25 -decompressor broadcast -compressor xor
